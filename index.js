@@ -16,11 +16,7 @@ restService.use(bodyParser.json());
 
 
 restService.post("/echo", function(req, res) {
-  console.log(req);
-  console.log("\n");
-  console.log(res);
-  console.log("lam sao day")
-  
+ console.log(req) ;
   var speech =
     "Noi kieu gi cung ra Quan";
   return res.json({
