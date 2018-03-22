@@ -12,11 +12,14 @@ restService.use(
 );
 
 restService.use(bodyParser.json());
+  console.log("In ra roi ne")
+
 
 restService.post("/echo", function(req, res) {
   console.log(req);
   console.log("\n");
   console.log(res);
+  console.log("lam sao day")
   
   var speech =
     "Noi kieu gi cung ra Quan";
