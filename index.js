@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 
 const restService = express();
 restService.set('view engine', 'ejs');
-var j;
+var j = "";
 
 restService.use(
   bodyParser.urlencoded({
@@ -32,7 +32,10 @@ restService.post("/echo", function(req, res) {
   });
 });
 
-restService.get('/', function (req, res) {
+restService.get('/echo', function (req, res) {
+
+  var bien = j;
+  res.locals.user =  bien;
   // console.log("Nhan mot GET Request ve Homepage");
   // var drinks = [
   //   { name: 'Bloody Mary', drunkness: 3 },
@@ -41,8 +44,8 @@ restService.get('/', function (req, res) {
   // ];
   // res.locals.a = drinks;
   // res.locals.title = 'My App';
+  console.log("Nhay vo view");
   res.render('pages/echo');
-  res.send(j);
 })
 
 
