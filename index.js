@@ -32,7 +32,7 @@ restService.post("/echo", function(req, res) {
 
 restService.get('/echo', function (req, res) {
   console.log("Nhan mot GET Request ve Homepage");
-  res.send(JSON.stringify(j));
+  res.send(j);
 })
 
 
