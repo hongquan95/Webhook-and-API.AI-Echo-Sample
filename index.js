@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const restService = express();
+var j;
 
 restService.use(
   bodyParser.urlencoded({
@@ -14,6 +15,7 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, res) {
+  j = req;
   var speech =
     req.body.result &&
     req.body.result.parameters &&
@@ -28,6 +30,22 @@ restService.post("/echo", function(req, res) {
   });
 });
 
+restService.get('/echo', function (req, res) {
+  console.log("Nhan mot GET Request ve Homepage");
+  res.send(JSON.stringify(j));
+  // res.send(j);
+})
+
+
 restService.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
 });
+
+// var server = restService.listen(8000, function () {
+
+//   var host = server.address().address
+//   var port = server.address().port
+
+//   console.log("Ung dung Node.js dang lang nghe tai dia chi: http://%s:%s", host, port)
+
+// })
