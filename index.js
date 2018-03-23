@@ -2,7 +2,15 @@
 var blynk = require('./blynkRes');
 const express = require("express");
 const bodyParser = require("body-parser");
+const axios = require("axios");
+//Quan:     3dddac1594e74646bde292060be39113
+//Tu:     dd6aa1dccaec458d9b8a29f0e8168339
+    
+    // const newResult = await doSomethingElse(result);
+    // const finalResult = await doThirdThing(newResult);
+    // console.log(`Got the final result: ${finalResult}`);
 
+  
 
 const restService = express();
 restService.set('view engine', 'ejs');
@@ -20,22 +28,34 @@ restService.post("/echo", function(req, res) {
   //------------------------------
   // var a = blynk.check_den1_stt();
   // console.log("HELLO");
-  // console.log(a);
-  var request = require('request');
-    request('http://188.166.206.43/dd6aa1dccaec458d9b8a29f0e8168339/get/D2').on('response', function(response) {
-      console.log("res=",response);
-      // j = body;
-    });
-    // ,function (error, response, body) {
-    // console.log('Status:', response.statusCode);
-    // console.log('Headers:', JSON.stringify(response.headers));
-    // // console.log('Response:', body);
-    // j = body;
-    // });
+  // // console.log(a);
+  // var request = require('request');
+  //   request('http://188.166.206.43/dd6aa1dccaec458d9b8a29f0e8168339/get/D2', function (error, response, body) {
+  //   console.log('Status:', response.statusCode);
+  //   console.log('Headers:', JSON.stringify(response.headers));
+  //   console.log('Response:', body);
+  //   j = body;
+  //   });
     
+  axios({
+    method:'get',
+    url:'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2',
+    responseType:'json'
+  })
+    .then(function(response) {
+      console.log(response.data)
+  });
+  var a = axios.interceptors.response.use(function (response) {
+    // Do something with response data
+    return response.data;
+  }, function (error) {
+    // Do something with response error
+    return Promise.reject(error);
+  });
+  
   //--------------------------------
-  // console.log(typeof(j));
-  var speech = "Den D2 dang " + j;
+  
+  var speech = "Den D2 dang " + a;
     // req.body.result &&
     // req.body.result.parameters &&
     // req.body.result.parameters.echoText
