@@ -18,12 +18,24 @@ restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, res) {
   //------------------------------
-  var a = blynk.check_den1_stt();
-  console.log("HELLO");
-  console.log(a);
+  // var a = blynk.check_den1_stt();
+  // console.log("HELLO");
+  // console.log(a);
+  var request = require('request');
+    request('http://188.166.206.43/dd6aa1dccaec458d9b8a29f0e8168339/get/D2').on('response', function(response) {
+      console.log("res=",response);
+      // j = body;
+    });
+    // ,function (error, response, body) {
+    // console.log('Status:', response.statusCode);
+    // console.log('Headers:', JSON.stringify(response.headers));
+    // // console.log('Response:', body);
+    // j = body;
+    // });
+    
   //--------------------------------
-  var speech =
-    "Den D2 dang " + a;
+  // console.log(typeof(j));
+  var speech = "Den D2 dang " + j;
     // req.body.result &&
     // req.body.result.parameters &&
     // req.body.result.parameters.echoText
