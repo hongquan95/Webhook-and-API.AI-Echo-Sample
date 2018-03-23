@@ -17,7 +17,16 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, res) {
-  j = req.body.result;
+  //-----------------------------------
+  var request = require('request');
+  request('http://blynk-cloud.com/dd6aa1dccaec458d9b8a29f0e8168339/get/D2', function (error, response, body) {
+  console.log('Status:', response.statusCode);
+  console.log('Headers:', JSON.stringify(response.headers));
+  console.log('Response:', body);
+  j = body;
+  });
+
+  //--------------------------------
   var speech =
     req.body.result &&
     req.body.result.parameters &&
@@ -35,16 +44,7 @@ restService.post("/echo", function(req, res) {
 restService.get('/echo', function (req, res) {
 
   var bien = j;
-  res.locals.user =  bien;
-  // console.log("Nhan mot GET Request ve Homepage");
-  // var drinks = [
-  //   { name: 'Bloody Mary', drunkness: 3 },
-  //   { name: 'Martini', drunkness: 5 },
-  //   { name: 'Scotch', drunkness: 10 }
-  // ];
-  // res.locals.a = drinks;
-  // res.locals.title = 'My App';
-  console.log("Nhay vo view");
+  res.locals.googleRes =  bien;
   res.render('pages/echo');
 })
 

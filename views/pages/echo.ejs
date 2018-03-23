@@ -1,24 +1,16 @@
-<!-- views/pages/index.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <% include ../partials/head %>
 </head>
-<script>
-   
-</script>
-<body class="container">
-        
-    <main>
-        <div class="jumbotron">
-                
-                    <script>
-                       myVar = JSON.parse('<%- JSON.stringify(user) %>');
-                    </script>
-                 
-        </div>
-    </main>
- 
+<body>
+    <div>        
+        <pre id="json"></pre>
+        <script>
+                getRes = JSON.parse('<%- JSON.stringify(googleRes) %>');
+                getResJson = JSON.stringify(getRes,null,3);
+                document.getElementById("json").innerHTML = getResJson;
+        </script>
+    </div>
 </body>
 </html>
