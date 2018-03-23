@@ -3,7 +3,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
+
 const restService = express();
+restService.set('view engine', 'ejs');
 var j;
 
 restService.use(
@@ -30,8 +32,16 @@ restService.post("/echo", function(req, res) {
   });
 });
 
-restService.get('/echo', function (req, res) {
-  console.log("Nhan mot GET Request ve Homepage");
+restService.get('/', function (req, res) {
+  // console.log("Nhan mot GET Request ve Homepage");
+  // var drinks = [
+  //   { name: 'Bloody Mary', drunkness: 3 },
+  //   { name: 'Martini', drunkness: 5 },
+  //   { name: 'Scotch', drunkness: 10 }
+  // ];
+  // res.locals.a = drinks;
+  // res.locals.title = 'My App';
+  res.render('pages/echo');
   res.send(j);
 })
 
@@ -39,12 +49,3 @@ restService.get('/echo', function (req, res) {
 restService.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
 });
-
-// var server = restService.listen(8000, function () {
-
-//   var host = server.address().address
-//   var port = server.address().port
-
-//   console.log("Ung dung Node.js dang lang nghe tai dia chi: http://%s:%s", host, port)
-
-// })
