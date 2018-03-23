@@ -17,7 +17,7 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, res) {
-  //-----------------------------------
+  //------------------------------
   var request = require('request');
   request('http://blynk-cloud.com/dd6aa1dccaec458d9b8a29f0e8168339/get/D2', function (error, response, body) {
   console.log('Status:', response.statusCode);
