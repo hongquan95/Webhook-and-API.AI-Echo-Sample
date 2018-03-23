@@ -19,10 +19,11 @@ restService.use(bodyParser.json());
 restService.post("/echo", function(req, res) {
   //------------------------------
   var request = require('request');
-  request('http://blynk-cloud.com/dd6aa1dccaec458d9b8a29f0e8168339/get/D2', function (error, response, body) {
+  request('http://188.166.206.43/dd6aa1dccaec458d9b8a29f0e8168339/get/D2', function (error, response, body) {
   console.log('Status:', response.statusCode);
   console.log('Headers:', JSON.stringify(response.headers));
   console.log('Response:', body);
+  
   j = body;
   });
 
