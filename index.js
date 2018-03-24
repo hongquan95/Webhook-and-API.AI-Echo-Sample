@@ -6,11 +6,6 @@ const axios = require("axios");
 //Quan:     3dddac1594e74646bde292060be39113
 //Tu:     dd6aa1dccaec458d9b8a29f0e8168339
     
-    // const newResult = await doSomethingElse(result);
-    // const finalResult = await doThirdThing(newResult);
-    // console.log(`Got the final result: ${finalResult}`);
-
-  
 
 const restService = express();
 restService.set('view engine', 'ejs');
@@ -22,40 +17,28 @@ restService.use(
   })
 );
 
+var request = require('request');
+  async function test() {
+    // var result = await db.collection('hospitals').findOne({name: '医療法人神甲会隈病院'})
+    console.log("nhay vao");
+    var err,response, body = await request('http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2');
+    console.log('after findResult: ', body);
+    }
+
 restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, res) {
-  //------------------------------
-  // var a = blynk.check_den1_stt();
-  // console.log("HELLO");
-  // // console.log(a);
-  // var request = require('request');
-  //   request('http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2', function (error, response, body) {
-  //   console.log('Status:', response.statusCode);
-  //   console.log('Headers:', JSON.stringify(response.headers));
-  //   console.log('Response:', body);
-  // //   j = body;
-  //   });
-    
-  axios({
-    method:'get',
-    url:'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2',
-    responseType:'json'
-  })
-    .then(function(response) {
-  });
-
-  axios.interceptors.response.use(function (response) {
-    console.log("RES",response);
-    j = response;
-    return response;
-  }, function (error) {
-    // Do something with response error
-    return Promise.reject(error);
-  });
   
+  execute()
+
+  function execute() {
+    var result = test()
+    console.log("ket qua bien result: ",result);
+  }
+
+
   //--------------------------------
-  console.log("RESULT = ", j.data)
+  // console.log("RESULT = ", j.data)
   var speech = "Den D2 dang " + j;
     // req.body.result &&
     // req.body.result.parameters &&
