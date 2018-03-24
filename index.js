@@ -15,34 +15,29 @@ restService.use(
   })
 );
 async function getJSONAsync(url) {
-
-  // The await keyword saves us from having to write a .then() block.
   let json = await axios.get(url);
-
-  // The result of the GET request is available in the json variable.
-  // We return it just like in a regular synchronous function.
   return json;
 }
 restService.use(bodyParser.json());
 restService.post("/echo", function(req, res) {
   googleReq = req.body.result;
-  blynkRes = req;
   var url = 'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2';         ;
+
   getJSONAsync(url).then( function(result) {
-    // blynkRes = result;
+    blynkRes = result.body;
+    console.log(result);
     var speech = "Den D2 dang " + result.data;
     return res.json({
       speech: speech,
       displayText: speech,
       source: "webhook-echo-sample"
-    });
-  });
-   
+      });
+  }); 
 });
 
 restService.get('/echo', function (req, res) {
   res.locals.google = googleReq ;
-  console.log(blynkRes);
+  res.locals.blynk = blynkRes;
   res.render('pages/echo');
 })
 
