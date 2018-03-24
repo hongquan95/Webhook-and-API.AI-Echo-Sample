@@ -113,6 +113,7 @@ restService.post("/echo", function(req, res) {
             // }
             
             // main();
+            console.log("Number-1 ");
             async function getJSONAsync() {
 
               // The await keyword saves us from having to write a .then() block.
@@ -122,16 +123,23 @@ restService.post("/echo", function(req, res) {
               // We return it just like in a regular synchronous function.
               return json;
           }
+          console.log("Number0 ");          
           getJSONAsync().then( function(result) {
             console.log("Result ==", result);
+              var speech = "Den D2 dang " + result.data;
+              return res.json({
+                speech: speech,
+                displayText: speech,
+                source: "webhook-echo-sample"
+              });
           });
-  // console.log("Show = ",show);
-  var speech = "Den D2 dang ";
-  return res.json({
-    speech: speech,
-    displayText: speech,
-    source: "webhook-echo-sample"
-  });
+  console.log("Number1 ");
+  // var speech = "Den D2 dang ";
+  // return res.json({
+  //   speech: speech,
+  //   displayText: speech,
+  //   source: "webhook-echo-sample"
+  // });
     
 });
 
