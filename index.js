@@ -7,7 +7,7 @@ const axios = require("axios");
 //Tu:     dd6aa1dccaec458d9b8a29f0e8168339
 const restService = express();
 restService.set('view engine', 'ejs');
-var j = "";
+var googleReq, blynkRes;
 
 restService.use(
   bodyParser.urlencoded({
@@ -25,9 +25,11 @@ async function getJSONAsync(url) {
 }
 restService.use(bodyParser.json());
 restService.post("/echo", function(req, res) {
-
+  googleReq = req.body.result;
+  blynkRes = req;
   var url = 'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2';         ;
   getJSONAsync(url).then( function(result) {
+    blynkRes = result;
     var speech = "Den D2 dang " + result.data;
     return res.json({
       speech: speech,
@@ -35,13 +37,12 @@ restService.post("/echo", function(req, res) {
       source: "webhook-echo-sample"
     });
   });
-    
+   
 });
 
 restService.get('/echo', function (req, res) {
-
-  var bien = j;
-  res.locals.googleRes =  bien;
+  res.locals.google = googleReq ;
+  console.log(blynkRes);
   res.render('pages/echo');
 })
 
