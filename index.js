@@ -29,7 +29,7 @@ restService.post("/echo", function(req, res) {
   blynkRes = req;
   var url = 'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2';         ;
   getJSONAsync(url).then( function(result) {
-    blynkRes = result;
+    // blynkRes = result;
     var speech = "Den D2 dang " + result.data;
     return res.json({
       speech: speech,

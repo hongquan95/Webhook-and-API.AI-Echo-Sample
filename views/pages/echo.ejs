@@ -5,11 +5,15 @@
 </head>
 <body>
     <div>        
-        <pre id="json"></pre>
         <script>
                 getRes = JSON.parse('<%- JSON.stringify(google) %>');
-                getResJson = JSON.stringify(getRes,null,3);
-                document.getElementById("json").innerHTML = getResJson;
+                getResJson = JSON.stringify(getRes);
+                
+                
+                import JSONFormatter from '../../dist/json-formatter-js'
+                const myJSON = {ans: 42};
+                const formatter = new JSONFormatter(getResJson);
+                document.body.appendChild(formatter.render());
         </script>
     </div>
 </body>
