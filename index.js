@@ -113,30 +113,20 @@ restService.post("/echo", function(req, res) {
             // }
             
             // main();
-  function getBody(encoding) {
-    if (this.statusCode >= 300) {
-      var err = new Error(
-        'Server responded with status code ' +
-          this.statusCode +
-          ':\n' +
-          this.body.toString(encoding)
-      );
-      err.statusCode = this.statusCode;
-      err.headers = this.headers;
-      err.body = this.body;
-      throw err;
-    }
-    return encoding ? this.body.toString(encoding) : this.body;
-  }
-  var request2 = require('sync-request');
-  var res = request2('GET', 'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2', {
-  headers: {
-    'user-agent': 'example-user-agent',
-  },
-  });
-  var show = res.getBody();
-  console.log("Show = ",show);
-  var speech = "Den D2 dang " + show;
+            async function getJSONAsync() {
+
+              // The await keyword saves us from having to write a .then() block.
+              let json = await axios.get('http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2');
+      
+              // The result of the GET request is available in the json variable.
+              // We return it just like in a regular synchronous function.
+              return json;
+          }
+          getJSONAsync().then( function(result) {
+            console.log("Result ==", result);
+          });
+  // console.log("Show = ",show);
+  var speech = "Den D2 dang ";
   return res.json({
     speech: speech,
     displayText: speech,
