@@ -56,68 +56,93 @@ restService.post("/echo", function(req, res) {
                   // })
                   // console.log("ss=",ss);
                   // console.log("s=",s);
-  async function getJSONAsync() {
+                                                      // async function getJSONAsync() {
 
-      // The await keyword saves us from having to write a .then() block.
-      let json = await axios.get('http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2');
+                                                      //     // The await keyword saves us from having to write a .then() block.
+                                                      //     let json = await axios.get('http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2');
 
-      // The result of the GET request is available in the json variable.
-      // We return it just like in a regular synchronous function.
+                                                      //     // The result of the GET request is available in the json variable.
+                                                      //     // We return it just like in a regular synchronous function.
 
-      return json;
+                                                      //     return json;
+                                                      // }
+
+                                                      // var J = getJSONAsync().then( function(result) {
+                                                      //   console.log("TYPE BODY = ", typeof(result));
+                                                      //   console.log("BODY = ", result.data);
+                                                      //   return result.data
+                                                      // });
+                                                      //--------------------------------
+                                                      // console.log("RESULT = ", j.data)
+            // var request = require("request");
+            // var userDetails;
+            
+            // function initialize() {
+            //     // Setting URL and headers for request
+            //     var options = {
+            //         url: 'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2',
+            //         headers: {
+            //             'User-Agent': 'request'
+            //         }
+            //     };
+            //     // Return new promise 
+            //     return new Promise(function(resolve, reject) {
+            //       // Do async job
+            //         request.get(options, function(err, resp, body) {
+            //             if (err) {
+            //                 reject(err);
+            //             } else {
+            //                 resolve(JSON.parse(body));
+            //             }
+            //         })
+            //     })
+            
+            // }
+            // var J = "";
+            // function main() {
+            //     var initializePromise = initialize();
+            //     initializePromise.then(function(result) {
+            //         userDetails = result;
+            //         console.log("Initialized user details");
+            //         // Use user details from here
+            //         console.log("XXX",userDetails);
+            //         J = userDetails;
+            //     }, function(err) {
+            //         console.log(err);
+            //     })
+            // }
+            
+            // main();
+  function getBody(encoding) {
+    if (this.statusCode >= 300) {
+      var err = new Error(
+        'Server responded with status code ' +
+          this.statusCode +
+          ':\n' +
+          this.body.toString(encoding)
+      );
+      err.statusCode = this.statusCode;
+      err.headers = this.headers;
+      err.body = this.body;
+      throw err;
+    }
+    return encoding ? this.body.toString(encoding) : this.body;
   }
-  var J = getJSONAsync().then( function(result) {
-    console.log("TYPE BODY = ", typeof(result));
-    console.log("BODY = ", result.data);
-    return result.data
+  var request2 = require('sync-request');
+  var res = request2('GET', 'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2', {
+  headers: {
+    'user-agent': 'example-user-agent',
+  },
   });
-
-  function MakeQuerablePromise(promise) {
-    // Don't modify any promise that has been already modified.
-    if (promise.isResolved) return promise;
-
-    // Set initial state
-    var isPending = true;
-    var isRejected = false;
-    var isFulfilled = false;
-
-    // Observe the promise, saving the fulfillment in a closure scope.
-    var result = promise.then(
-        function(v) {
-            isFulfilled = true;
-            isPending = false;
-            return v; 
-        }, 
-        function(e) {
-            isRejected = true;
-            isPending = false;
-            throw e; 
-        }
-    );
-
-    result.isFulfilled = function() { return isFulfilled; };
-    result.isPending = function() { return isPending; };
-    result.isRejected = function() { return isRejected; };
-    return result;
-}
- 
-
-  //--------------------------------
-  while (!J.isResolved);
-  console.log(J);
-  var speech = "Den D2 dang " + J;
-    // req.body.result &&
-    // req.body.result.parameters &&
-    // req.body.result.parameters.echoText
-    //   ? req.body.result.parameters.echoText
-    //   : "Seems like some problem. Speak again.";
+  var show = res.getBody();
+  console.log("Show = ",show);
+  var speech = "Den D2 dang " + show;
+  return res.json({
+    speech: speech,
+    displayText: speech,
+    source: "webhook-echo-sample"
+  });
     
-  // return res.json({
-  //   speech: speech,
-  //   displayText: speech,
-  //   source: "webhook-echo-sample",
-  //   top: "I am Quan"
-  // });
 });
 
 restService.get('/echo', function (req, res) {
