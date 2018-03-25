@@ -6,5 +6,12 @@ module.exports = {
     let json = await axios.get(url);
     return json;
   },
+  write_pin_value_via_get:  async function (url, value) {
+    let json = axios.get(url + value);
+    return json;
+  },
+  write_pin_value_via_put:  async function (url, value) {
+    let json = axios.put(url, { body: value}) //"[\"1\"]"
+    return json;
+  },
 };
-

@@ -29,15 +29,31 @@ function getReturn(g_res, speech){
 
 restService.use(bodyParser.json());
 
+//----------------Read or Write value pin --------------------------
+
 restService.post("/echo", function(g_req, g_res) {
   googleReq = g_req.body.result;
-  let url = 'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2';         
-  blynk.get_pin_value(url).then( function(b_res) {
+
+
+  // let url = 'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2';         
+  // blynk.get_pin_value(url).then( function(b_res) {
+  //   blynkRes = b_res.body;
+  //   var speech = "Den D2 dang " + b_res.data;
+  //   return getReturn(g_res,speech);
+  // });
+
+  let url = 'http://188.166.206.43/3dddac1594e74646bde292060be39113/update/';
+  let value = 'D2?value=1';
+  blynk.write_pin_value_via_get(url,value).then( function(b_res) {
     blynkRes = b_res.body;
     var speech = "Den D2 dang " + b_res.data;
     return getReturn(g_res,speech);
-  }); 
+  });
+  
+  
 });
+
+//-----------------------------------------------------------------------
 
 restService.get('/echo', function (req, res) {
   res.locals.google = googleReq ;
