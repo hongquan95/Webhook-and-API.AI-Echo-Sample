@@ -56,6 +56,60 @@ restService.post("/echo", function(g_req, g_res) {
   var para = processJson(googleReq);
   console.log("PARA =",para);
 
+    switch (para.action)
+    {
+      case 'o.control-led' :
+        getReturn(g_res,'o.control-led');
+        break;
+      
+      case 'o.control-a-device' :
+        getReturn(g_res,'o.control-a-device');
+        break;
+
+      case 'o.ask-device-state' :
+        getReturn(g_res,'o.ask-device-state');
+        break;
+        
+      case 'o.open-close-door' :
+        getReturn(g_res,'o.open-close-door');
+        break;
+
+      case 'o.make-all' :
+        getReturn(g_res,'o.make-all');
+        break;
+
+      case 'o.check-status-led' :
+        getReturn(g_res,'o.check-status-led');
+        break;
+      
+      case 'o.check-device' :
+        getReturn(g_res,'o.check-device');
+        break;
+        
+      case 'o.check-all' :
+        getReturn(g_res,'o.check-all');
+        break;
+
+      case 'o.see-sensor' :
+        getReturn(g_res,'o.see-sensor');
+        break;
+
+      case 'ask-led-room-state' :
+        getReturn(g_res,'ask-led-room-state');
+        break;
+
+      case 'ask-status-led-room' :
+        getReturn(g_res,'ask-status-led-room');
+        break;
+
+      case 'turn-it-on-off' :
+        getReturn(g_res,'ask-led-room-state');
+        break;
+
+      default:
+        getReturn(g_res,'Invalid');
+    }
+
 
   // let url = 'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2';         
   // blynk.get_pin_value(url).then( function(b_res) {
@@ -64,13 +118,13 @@ restService.post("/echo", function(g_req, g_res) {
   //   return getReturn(g_res,speech);
   // });
 
-  let url = 'http://188.166.206.43/3dddac1594e74646bde292060be39113/update/';
-  let value = 'D2?value=1';
-  blynk.write_pin_value_via_get(url,value).then( function(b_res) {
-    blynkRes = b_res.body;
-    var speech = "Den D2 dang " + b_res.data;
-    return getReturn(g_res,speech);
-  });
+  // let url = 'http://188.166.206.43/3dddac1594e74646bde292060be39113/update/';
+  // let value = 'D2?value=1';
+  // blynk.write_pin_value_via_get(url,value).then( function(b_res) {
+  //   blynkRes = b_res.body;
+  //   var speech = "Den D2 dang " + b_res.data;
+  //   return getReturn(g_res,speech);
+  // });
   
   
 });
