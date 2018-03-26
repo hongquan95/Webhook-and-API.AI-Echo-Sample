@@ -33,6 +33,11 @@ restService.use(bodyParser.json());
 
 restService.post("/echo", function(g_req, g_res) {
   googleReq = g_req.body.result;
+  var raw = {
+    action: googleReq.action,
+    context: googleReq.contexts
+  };
+  console.log("raw =",raw);
 
 
   // let url = 'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2';         
