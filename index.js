@@ -25,7 +25,23 @@ function getReturn(g_res, speech){
     });
 }
 
-//---------------------------------------------
+//-----------------Process Json----------------------------
+
+function processJson(raw)
+{
+  var a = {};
+  a.action = raw.action
+  if (raw.action.includes("o."))
+    a.parameters = raw.parameters;
+  else
+    raw.contexts.forEach(ele => {
+      if ( raw.action == ele.name )
+      a.parameters = ele.parameters;
+    });
+  return a;
+}
+
+//----------------------------------------------------------
 
 restService.use(bodyParser.json());
 
@@ -33,11 +49,12 @@ restService.use(bodyParser.json());
 
 restService.post("/echo", function(g_req, g_res) {
   googleReq = g_req.body.result;
-  var raw = {
-    action: googleReq.action,
-    context: googleReq.contexts
-  };
-  console.log("raw =",raw);
+  // var raw = {
+  //   action: googleReq.action,
+  //   context: googleReq.contexts
+  // };
+  var para = processJson(googleReq);
+  console.log("PARA =",para);
 
 
   // let url = 'http://188.166.206.43/3dddac1594e74646bde292060be39113/get/D2';         
