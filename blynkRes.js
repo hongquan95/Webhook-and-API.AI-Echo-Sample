@@ -6,8 +6,8 @@ module.exports = {
     let json = await axios.get(url);
     return json;
   },
-  write_pin_value_via_get:  async function (url, value) {
-    let json = axios.get(url + value);
+  write_pin_value_via_get:  async function (url) {
+    let json = axios.get(url);
     return json;
   },
   write_pin_value_via_put:  async function (url, value) {
