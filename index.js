@@ -161,9 +161,33 @@ restService.post("/echo", function(g_req, g_res) {
           });
         }
         break;
-      
+      case 'o.check-door':  
+        if ( para.parameters.door == "" ) return getReturn(g_res,"An unknown error");
       case 'o.check-device' :
-        getReturn(g_res,'o.check-device');
+        if ( para.parameters.device == "" )
+          return getReturn(g_res,"An unknown error");
+        else
+        {
+          //  http://blynk-cloud.com/dd6aa1dccaec458d9b8a29f0e8168339/get/V10
+          let url = blynk_url + res.get;
+          url += para.action == 'o.check-door' ? pin[para.parameters.door] : pin[para.parameters.device];
+          console.log("URL = ", url);
+          blynk.get_pin_value(url).then( function(b_res) {
+            blynkRes = b_res.data;
+            var speech = "The  ";
+            if ( para.action == 'o.check-door' )
+            {
+              speech += para.parameters.door + " is ";
+              speech += b_res.data == '0' ? "opened" : "closed"; 
+            }
+            else
+            {
+              speech +=  para.parameters.device + " is ";
+              speech += b_res.data == '0' ? "on" : "off";
+            }
+            return getReturn(g_res,speech);    
+          });
+        }
         break;
         
       case 'o.check-all' :
