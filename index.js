@@ -15,6 +15,15 @@ restService.use(
   })
 );
 
+//-------------Enum declare-----------------------
+
+var state = {"on": "0", "off": "1", "open": "0", "close": "1"};
+var room = {"bed":"bedroom","kitchen":"kitchen"};
+var sensor = {"temp": "temperature", "humi": "humidity", "gas": "gas"};
+var device = {"led": "led", "fan": "fan", "door": "door", "heat": "heater"}
+
+//-------------------------------------------------
+
 //------Return json to respon ----------------
 
 function getReturn(g_res, speech){
