@@ -67,7 +67,7 @@ restService.post("/echo", function(g_req, g_res) {
   //   context: googleReq.contexts
   // };
   var para = processJson(googleReq);
-  // console.log("PARA =",para);
+  console.log("PARA =",para);
 
     switch (para.action)
     {
@@ -90,6 +90,7 @@ restService.post("/echo", function(g_req, g_res) {
         break;
       
       case 'o.control-a-device' :
+      case 'ask-device-state' :
 
         if ( para.parameters.device && para.parameters.state == "" )
           return getReturn(g_res,"An unknown error");
@@ -107,9 +108,9 @@ restService.post("/echo", function(g_req, g_res) {
         }
         break;
 
-      case 'o.ask-device-state' :
-        getReturn(g_res,'o.ask-device-state');
-        break;
+      // case 'ask-device-state' :
+      //   getReturn(g_res,'ask-device-state');
+      //   break;
         
       case 'o.open-close-door' :
         getReturn(g_res,'o.open-close-door');
