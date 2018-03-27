@@ -82,7 +82,7 @@ restService.post("/echo", function(g_req, g_res) {
           console.log("URL = ", url);
           blynk.write_pin_value_via_get(url).then( function(b_res) {
             blynkRes = b_res.body;
-            var speech = "The led on " + para.parameters.room + "is " + para.parameters.state;
+            var speech = "The led on " + para.parameters.room + " is " + para.parameters.state;
             return getReturn(g_res,speech);    
           });
           // getReturn(g_res,url);
@@ -90,7 +90,21 @@ restService.post("/echo", function(g_req, g_res) {
         break;
       
       case 'o.control-a-device' :
-        getReturn(g_res,'o.control-a-device');
+
+        if ( para.parameters.device && para.parameters.state == "" )
+          return getReturn(g_res,"An unknown error");
+        else
+        {
+          // http://blynk-cloud.com/4ae3851817194e2596cf1b7103603ef8/update/D8?value=1
+          let url = blynk_url + res.update + pin[para.parameters.device] + '?value=' + state[para.parameters.state]
+          console.log("URL = ", url);
+          blynk.write_pin_value_via_get(url).then( function(b_res) {
+            blynkRes = b_res.body;
+            var speech = "The " + para.parameters.device + " is " + para.parameters.state;
+            return getReturn(g_res,speech);    
+          });
+          // getReturn(g_res,url);
+        }
         break;
 
       case 'o.ask-device-state' :
