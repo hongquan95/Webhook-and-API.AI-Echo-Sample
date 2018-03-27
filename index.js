@@ -82,7 +82,7 @@ restService.post("/echo", function(g_req, g_res) {
           console.log("URL = ", url);
           blynk.write_pin_value_via_get(url).then( function(b_res) {
             blynkRes = b_res.body;
-            var speech = "The led on " + para.parameters.room + " is " + para.parameters.state;
+            var speech = "The led in " + para.parameters.room + " is " + para.parameters.state;
             return getReturn(g_res,speech);    
           });
           // getReturn(g_res,url);
@@ -145,7 +145,21 @@ restService.post("/echo", function(g_req, g_res) {
         break;
 
       case 'o.check-status-led' :
-        getReturn(g_res,'o.check-status-led');
+      
+        if ( para.parameters.room && para.parameters.led == "" )
+          return getReturn(g_res,"An unknown error");
+        else
+        {
+          //  http://blynk-cloud.com/dd6aa1dccaec458d9b8a29f0e8168339/get/V10
+          let url = blynk_url + res.get + pin[para.parameters.room];
+          console.log("URL = ", url);
+          blynk.get_pin_value(url).then( function(b_res) {
+            blynkRes = b_res.data;
+            var speech = "The led in " + para.parameters.room + " is ";
+            speech += b_res.data == '0' ? "on" : "off";
+            return getReturn(g_res,speech);    
+          });
+        }
         break;
       
       case 'o.check-device' :
